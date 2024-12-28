@@ -2,12 +2,12 @@ class Project {
     tasks = [];
 
     constructor(title) {
-        this._title = title;
+        this.title = title;
     }
 
     // Getters
     getTitle() {
-        return this._title;
+        return this.title;
     }
 
     getTasks() {
@@ -16,11 +16,7 @@ class Project {
 
     // Setters
     setTitle(value) {
-        this._title = value;
-    }
-
-    setTasks(value) {
-        this.tasks = value;
+        this.title = value;
     }
 
     // Method to add a task
@@ -28,3 +24,5 @@ class Project {
         this.tasks.push(task);
     }
 }
+
+export { Project };

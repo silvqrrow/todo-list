@@ -1,11 +1,11 @@
 class Task {
-    constructor(title, description, dueDate, priority = "Priority 4", completed = false, project = "Inbox") {
+    constructor(title, description, dueDate, priority, project) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
-        this.completed = completed;
         this.project = project;
+        this.completed = false;
     }
 
     // Getters
@@ -58,3 +58,5 @@ class Task {
         this.completed = true;
     }
 }
+
+export { Task };
