@@ -13,7 +13,7 @@ const toDoController = function () {
     };
 
     const searchForProject = (projectTitle) => {
-        return projects.find((project) => project.title === projectTitle);
+        return projects.find((project) => project.title == projectTitle);
     };
 
     const getProjects = () => {

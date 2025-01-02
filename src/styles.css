@@ -74,3 +74,67 @@ body {
   justify-content:space-between;
 }
 
+dialog {
+  border: none;
+  border-radius: 5px;
+  padding: 3rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  margin-top: 15rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  margin: 0.5rem 0rem;
+  padding: 0.5rem 0rem 0.5rem 0.5rem;
+  text-align: left;
+  font-size: 0.8rem;
+  border-radius: 5px;
+  border: 2px solid rgb(185, 185, 185);
+}
+
+.add-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+hr {
+  margin: 1rem 0rem;
+}
+
+label {
+  font-weight: 600;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.form-buttons > button {
+  cursor: pointer;
+  height: 2rem;
+  width: 4rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+}
+
+#submit-button {
+  background-color: #9f4dcf;
+  color: #ffffff;
+}
+
+#submit-button:hover {
+  background-color: #8a42b4;
+}
+
+#cancel-button:hover {
+  background-color: #d6d4d8;
+}

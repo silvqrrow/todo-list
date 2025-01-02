@@ -1,7 +1,10 @@
 import "./styles.css";
 import { toDoController } from './toDoController';
+import { initializeProjectButtonLogic } from './buttonLogic';
 
 const controller = toDoController();
+window.controller = controller; // DELETE LATER
+initializeProjectButtonLogic(controller);
 
 // TO TEST
 

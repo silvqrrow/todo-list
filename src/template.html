@@ -23,13 +23,25 @@
                 <div class="top-side-bar-lower">
                     <div class="my-projects">
                         <p class="my-projects-text">My Projects</p>
-                        <button class="btn"><i class="fa-solid fa-plus"></i></button>
+                        <button class="btn" id="add-project"><i class="fa-solid fa-plus"></i></button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="content"></div>
     </div>
+    <dialog class="project-dialog dialog">
+        <form method="dialog" class="add-project-form">
+          <p class="add-title">Add project</p>
+          <hr>
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" required>
+          <div class="form-buttons">
+            <button class="cancel" type="button" id="cancel-button">Cancel</button>
+            <button class="submit" type="submit" id="submit-button">Add</button>
+        </div>
+        </form>
+    </dialog>
     <script src="https://kit.fontawesome.com/4291371c10.js" crossorigin="anonymous"></script>
 </body>
 </html>
