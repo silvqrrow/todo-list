@@ -22,4 +22,23 @@ const initializeProjectButtonLogic = (controller) => {
     });
 };
 
-export { initializeProjectButtonLogic };
+const initializeTaskButtonLogic = (controller) => {
+    const addTaskButton = document.getElementById("add-task");
+    const datePickerId = document.getElementById("dueDate");
+    datePickerId.min = new Date().toLocaleDateString('fr-ca')
+    // do below
+    const taskDialog = document.querySelector(".task-dialog");
+    const addTaskForm = document.querySelector(".add-task-form");
+    const cancelButton = document.getElementById("cancel-button");  
+
+    addTaskButton.addEventListener("click", function () {
+        taskDialog.showModal();
+    });
+
+    cancelButton.addEventListener("click", function () {
+        taskDialog.close();
+        addTaskForm.reset();
+    });
+};
+
+export { initializeProjectButtonLogic, initializeTaskButtonLogic };
