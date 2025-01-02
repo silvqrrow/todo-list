@@ -1,7 +1,8 @@
 * {
   margin: 0;
   padding: 0;
-  color: #444444
+  color: #444444;
+  font-family: 'Montserrat', sans-serif;
 }
 /* --- */
 html,
@@ -20,13 +21,13 @@ body {
   width: 15%;
 }
 
-.top-sidebar {
+.top-sidebar, .bottom-sidebar {
   display: flex;
   flex-direction: column;
   margin-top: 4rem;
 }
 
-.top-sidebar-upper {
+.top-sidebar-upper, .top-side-bar-lower {
   display: flex;
   flex-direction: column;
 }
@@ -64,3 +65,12 @@ body {
 .tab:focus i {
   color: #9f4dcf;
 }
+
+.my-projects {
+  margin: 0rem 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+}
+
