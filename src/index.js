@@ -3,6 +3,8 @@ import { toDoController } from './toDoController';
 
 const controller = toDoController();
 
+// TO TEST
+
 // Add a new project
 controller.addProject('New Project');
 
