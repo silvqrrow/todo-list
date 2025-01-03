@@ -88,8 +88,7 @@ form {
   flex-direction: column;
 }
 
-input {
-  margin: 0.5rem 0rem;
+input, select, textarea{
   padding: 0.5rem 0rem 0.5rem 0.5rem;
   text-align: left;
   font-size: 0.8rem;
@@ -108,13 +107,19 @@ hr {
 
 label {
   font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+textarea {
+  resize: none;
 }
 
 .form-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: 1.5rem;
 }
 
 .form-buttons > button {
@@ -137,4 +142,14 @@ label {
 
 #cancel-button:hover {
   background-color: #d6d4d8;
+}
+
+.form-row {
+  display: flex;
+  gap: 2rem;
+}
+
+.form-sect {
+  display: flex;
+  flex-direction: column;
 }

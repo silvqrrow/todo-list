@@ -10,7 +10,7 @@ initializeTaskButtonLogic(controller);
 // TO TEST
 
 // Add a new project
-controller.addProject('New Project');
+controller.addProject('New Project') ;
 
 // Get all projects
 const projects = controller.getProjects();

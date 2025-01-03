@@ -37,7 +37,7 @@
           <label for="title">Title</label>
           <input type="text" id="title" name="title" required>
           <div class="form-buttons">
-            <button class="cancel" type="button" id="cancel-button">Cancel</button>
+            <button class="cancel" type="button" id="project-cancel-button">Cancel</button>
             <button class="submit" type="submit" id="submit-button">Add</button>
         </div>
         </form>
@@ -49,18 +49,29 @@
           <label for="title">Title</label>
           <input type="text" id="title" name="title" required>
           <label for="description">Description</label>
-          <input type="text" id="description" name="description">
-          <label for="dueDate">Due date</label>
-          <input type="date" id="dueDate" name="dueDate">
-          <label for="priority">Priority</label>
-          <select name="priority" id="priority">
-            <option value="priority-4">Priority 4</option>
-            <option value="priority-1">Priority 1</option>
-            <option value="priority-2">Priority 2</option>
-            <option value="priority-3">Priority 3</option>
-          </select>
+          <textarea id="description" name="description" rows="4" cols="50"></textarea>
+        <div class="form-row">
+            <div class="form-sect">
+                <label for="dueDate">Due date</label>
+                <input type="date" id="dueDate" name="dueDate">
+            </div>
+            <div class="form-sect">
+                <label for="priority">Priority</label>
+                <select name="priority" id="priority">
+                    <option value="priority-4">Priority 4</option>
+                    <option value="priority-1">Priority 1</option>
+                    <option value="priority-2">Priority 2</option>
+                    <option value="priority-3">Priority 3</option>
+                </select>
+            </div>
+            <div class="form-sect">
+                <label for="project">Project</label>
+                <select name="project" id="project">
+                </select>
+            </div>
+        </div>
           <div class="form-buttons">
-            <button class="cancel" type="button" id="cancel-button">Cancel</button>
+            <button class="cancel" type="button" id="task-cancel-button">Cancel</button>
             <button class="submit" type="submit" id="submit-button">Add</button>
         </div>
         </form>
