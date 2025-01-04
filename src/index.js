@@ -8,7 +8,12 @@ initializeProjectButtonLogic(controller);
 initializeTaskButtonLogic(controller);
 
 // TO TEST
-
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('tab-focused'));
+      tab.classList.add('tab-focused');
+    });
+  });
 // Add a new project
 controller.addProject('New Project') ;
 
