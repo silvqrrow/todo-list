@@ -1,4 +1,4 @@
-import { displayProjects } from "./domManipulation";
+import { displayProjects, displayTasks } from "./domManipulation";
 
 const initializeProjectButtonLogic = (controller) => {
   const addProjectButton = document.getElementById("add-project");
@@ -63,6 +63,9 @@ const initializeTaskButtonLogic = (controller) => {
     taskDialog.close();
     projectSelect.replaceChildren();
     addTaskForm.reset();
+
+    const projectForDisplay = controller.searchForProject(taskProject);
+    displayTasks(projectForDisplay, controller);
   });
 
   cancelButton.addEventListener("click", function () {

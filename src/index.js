@@ -4,20 +4,15 @@ import {
   initializeProjectButtonLogic,
   initializeTaskButtonLogic,
 } from "./creationButtonLogic";
+import { setupTabClickHandlers } from "./domManipulation.js";
 
 const controller = toDoController();
 initializeProjectButtonLogic(controller);
 initializeTaskButtonLogic(controller);
 
-// TO TEST
-document.querySelectorAll(".tab").forEach((tab) => {
-  tab.addEventListener("click", function () {
-    document
-      .querySelectorAll(".tab")
-      .forEach((t) => t.classList.remove("tab-focused"));
-    tab.classList.add("tab-focused");
-  });
-});
+setupTabClickHandlers();
+
+window.controller = controller;
 
 // Add a new project
 controller.addProject("New Project");

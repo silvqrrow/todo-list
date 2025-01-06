@@ -181,16 +181,17 @@ textarea {
   display: flex;
   flex-direction: column;
 }
-.tab-focused {
-  background-color: #ede4ff;
-  color: #9f4dcf;
-}
-
-.tab-focused i {
-  color: #9f4dcf;
-}
 
 .project-list {
   display: flex;
   flex-direction: column;
+}
+
+.tab.active {
+  background-color: #ede4ff;
+  color: #9f4dcf;
+}
+
+.tab.active i {
+  color: #9f4dcf;
 }

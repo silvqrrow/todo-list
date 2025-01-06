@@ -44,6 +44,7 @@ const toDoController = function () {
     createProject,
     createTask,
     removeProject,
+    searchForProject,
   };
 };
 
