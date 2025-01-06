@@ -1,4 +1,6 @@
+// filepath: /home/jasmine/Odin/Projects/todo-list/src/domManipulation.js
 import { format } from "date-fns";
+import completedSound from "./sounds/completed.mp3";
 
 const displayProjects = (controller) => {
   const projectContainer = document.querySelector(".project-list");
@@ -31,6 +33,8 @@ const removeProject = (index, controller) => {
 };
 
 const displayTasks = (project, controller) => {
+  const completeSound = new Audio(completedSound);
+
   const projectTitle = project.getTitle();
   const tasks = controller.getTasks(projectTitle);
   const contentContainer = document.querySelector(".content");
@@ -67,8 +71,12 @@ const displayTasks = (project, controller) => {
 
     const taskDueDate = document.createElement("p");
     taskDueDate.classList.add("task-due-date");
-    const dueDate = task.getDueDate();
-    taskDueDate.textContent = format(dueDate, "MMM d, yyyy");
+    const dueDate = new Date(task.getDueDate());
+    const formattedDate =
+      dueDate.getFullYear() > 2025
+        ? format(dueDate, "MMM d, yyyy")
+        : format(dueDate, "MMM d");
+    taskDueDate.textContent = formattedDate;
     textContainer.appendChild(taskDueDate);
 
     const taskDescription = document.createElement("p");
@@ -78,9 +86,14 @@ const displayTasks = (project, controller) => {
 
     taskTab.appendChild(textContainer);
     taskContainer.appendChild(taskTab);
+
+    checkbox.addEventListener("click", function () {
+      controller.removeTask(projectTitle, index);
+      taskTab.remove();
+      completeSound.play(); // Play the complete sound
+    });
   });
 };
-
 // Purely for adding colouring for tabs
 function setupTabClickHandlers() {
   document.addEventListener("DOMContentLoaded", () => {

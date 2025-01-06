@@ -33,6 +33,13 @@ const toDoController = function () {
     return projectToGetTasks.getTasks();
   };
 
+  const removeTask = (projectTitle, taskIndex) => {
+    const project = searchForProject(projectTitle);
+    if (project) {
+      project.getTasks().splice(taskIndex, 1);
+    }
+  };
+
   const addTask = (title, description, dueDate, priority, project) => {
     const projectToAdd = searchForProject(project);
     const newTask = createTask(title, description, dueDate, priority, project);
@@ -48,6 +55,7 @@ const toDoController = function () {
     createTask,
     removeProject,
     searchForProject,
+    removeTask,
   };
 };
 
