@@ -27,6 +27,9 @@ const toDoController = function () {
 
   const getTasks = (projectTitle) => {
     const projectToGetTasks = searchForProject(projectTitle);
+    if (!projectToGetTasks) {
+      return [];
+    }
     return projectToGetTasks.getTasks();
   };
 

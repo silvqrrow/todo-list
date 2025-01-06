@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 const displayProjects = (controller) => {
   const projectContainer = document.querySelector(".project-list");
   projectContainer.replaceChildren();
@@ -31,21 +33,50 @@ const removeProject = (index, controller) => {
 const displayTasks = (project, controller) => {
   const projectTitle = project.getTitle();
   const tasks = controller.getTasks(projectTitle);
-  const taskContainer = document.querySelector(".content");
-  taskContainer.replaceChildren();
+  const contentContainer = document.querySelector(".content");
+
+  contentContainer.replaceChildren();
 
   const projectHeading = document.createElement("h1");
   projectHeading.textContent = projectTitle;
+  contentContainer.append(projectHeading);
 
-  taskContainer.append(projectHeading);
+  // Create and append taskContainer
+  const taskContainer = document.createElement("div");
+  taskContainer.classList.add("task-container");
+  contentContainer.append(taskContainer);
+
   tasks.forEach((task, index) => {
     const taskTab = document.createElement("div");
-    // projectTab.classList.add("btn-projects");
-    // projectTab.classList.add("tab");
+    taskTab.classList.add("task-tab");
     taskTab.setAttribute("data-index", index);
 
-    // Set text for tab
-    taskTab.textContent = task.getTitle();
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.classList.add(`${task.getPriority()}`);
+    checkbox.classList.add("checkbox");
+    taskTab.appendChild(checkbox);
+
+    const textContainer = document.createElement("div");
+    textContainer.classList.add("text-container");
+
+    const taskTitle = document.createElement("p");
+    taskTitle.classList.add("task-title");
+    taskTitle.textContent = task.getTitle();
+    textContainer.appendChild(taskTitle);
+
+    const taskDueDate = document.createElement("p");
+    taskDueDate.classList.add("task-due-date");
+    const dueDate = task.getDueDate();
+    taskDueDate.textContent = format(dueDate, "MMM d, yyyy");
+    textContainer.appendChild(taskDueDate);
+
+    const taskDescription = document.createElement("p");
+    taskDescription.classList.add("task-description");
+    taskDescription.textContent = task.getDescription();
+    textContainer.appendChild(taskDescription);
+
+    taskTab.appendChild(textContainer);
     taskContainer.appendChild(taskTab);
   });
 };
