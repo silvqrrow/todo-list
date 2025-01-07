@@ -289,3 +289,14 @@ h1 {
 .priority-1:hover {
   background-color: #ff9999;
 }
+
+.task-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.edit-icon {
+  cursor: pointer;
+}

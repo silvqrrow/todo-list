@@ -46,6 +46,10 @@ const toDoController = function () {
     projectToAdd.addTask(newTask);
   };
 
+  const getProject = (projectTitle) => {
+    return projects.find((project) => project.getTitle() === projectTitle);
+  };
+
   return {
     addProject,
     getProjects,
@@ -56,6 +60,7 @@ const toDoController = function () {
     removeProject,
     searchForProject,
     removeTask,
+    getProject,
   };
 };
 

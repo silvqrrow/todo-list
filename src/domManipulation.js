@@ -1,4 +1,3 @@
-// filepath: /home/jasmine/Odin/Projects/todo-list/src/domManipulation.js
 import { format } from "date-fns";
 import completedSound from "./sounds/completed.mp3";
 
@@ -55,12 +54,20 @@ const displayTasks = (project, controller) => {
     taskTab.classList.add("task-tab");
     taskTab.setAttribute("data-index", index);
 
+    const taskControls = document.createElement("div");
+    taskControls.classList.add("task-controls");
+
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.classList.add(`${task.getPriority()}`);
     checkbox.classList.add("checkbox");
-    taskTab.appendChild(checkbox);
+    taskControls.appendChild(checkbox);
 
+    const editIcon = document.createElement("i");
+    editIcon.classList.add("fas", "fa-edit", "edit-icon");
+    taskControls.appendChild(editIcon);
+
+    taskTab.appendChild(taskControls);
     const textContainer = document.createElement("div");
     textContainer.classList.add("text-container");
 
@@ -90,10 +97,99 @@ const displayTasks = (project, controller) => {
     checkbox.addEventListener("click", function () {
       controller.removeTask(projectTitle, index);
       taskTab.remove();
-      completeSound.play(); // Play the complete sound
+      completeSound.play();
+    });
+
+    const handleEditSubmit = function (
+      e,
+      editTaskForm,
+      task,
+      projectTitle,
+      index,
+      taskTab,
+      controller,
+      editTaskDialog
+    ) {
+      e.preventDefault();
+      const newProjectTitle = editTaskForm["edit-project"].value;
+
+      // Update the task details
+      const updatedTitle = editTaskForm["edit-title"].value;
+      const updatedDescription = editTaskForm["edit-description"].value;
+      const updatedDueDate = editTaskForm["edit-due-date"].value;
+      const updatedPriority = editTaskForm["edit-priority"].value;
+
+      // Remove the task from the current project
+      controller.removeTask(projectTitle, index);
+      taskTab.remove();
+
+      // Add a new task with the updated details
+      controller.addTask(
+        updatedTitle,
+        updatedDescription,
+        updatedDueDate,
+        updatedPriority,
+        newProjectTitle
+      );
+
+      editTaskDialog.close();
+      displayTasks(controller.getProject(projectTitle), controller);
+      displayTasks(controller.getProject(newProjectTitle), controller);
+    };
+
+    editIcon.addEventListener("click", function () {
+      const editTaskDialog = document.querySelector(".edit-task-dialog");
+      const editTaskForm = document.querySelector(".edit-task-form");
+      const editProjectSelect = editTaskForm["edit-project"];
+
+      // Clear existing options
+      editProjectSelect.innerHTML = "";
+
+      // Populate the project dropdown with the current list of projects
+      const projects = controller.getProjects();
+      projects.forEach((project) => {
+        const option = document.createElement("option");
+        option.value = project.getTitle();
+        option.textContent = project.getTitle();
+        editProjectSelect.appendChild(option);
+      });
+
+      // Populate the edit form with the current task details
+      editTaskForm["edit-title"].value = task.getTitle();
+      editTaskForm["edit-description"].value = task.getDescription();
+      editTaskForm["edit-due-date"].value = task.getDueDate();
+      editTaskForm["edit-priority"].value = task.getPriority();
+      editTaskForm["edit-project"].value = task.getProject();
+
+      editTaskDialog.showModal();
+
+      // Remove the existing event listener before adding a new one
+      const newHandleEditSubmit = function (e) {
+        handleEditSubmit(
+          e,
+          editTaskForm,
+          task,
+          projectTitle,
+          index,
+          taskTab,
+          controller,
+          editTaskDialog
+        );
+        editTaskForm.removeEventListener("submit", newHandleEditSubmit);
+      };
+
+      editTaskForm.addEventListener("submit", newHandleEditSubmit);
+
+      const editCancelButton = document.getElementById(
+        "edit-task-cancel-button"
+      );
+      editCancelButton.addEventListener("click", function () {
+        editTaskDialog.close();
+      });
     });
   });
 };
+
 // Purely for adding colouring for tabs
 function setupTabClickHandlers() {
   document.addEventListener("DOMContentLoaded", () => {

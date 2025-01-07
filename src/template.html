@@ -98,6 +98,48 @@
         </div>
       </form>
     </dialog>
+    <dialog class="edit-task-dialog dialog">
+      <form method="dialog" class="edit-task-form">
+        <p class="edit-title">Edit Task</p>
+        <hr />
+        <label for="edit-title">Title</label>
+        <input type="text" id="edit-title" name="title" required />
+        <label for="edit-description">Description</label>
+        <textarea
+          id="edit-description"
+          name="description"
+          rows="4"
+          cols="50"
+        ></textarea>
+        <div class="form-row">
+          <div class="form-sect">
+            <label for="edit-due-date">Due date</label>
+            <input type="date" id="edit-due-date" name="dueDate" required />
+          </div>
+          <div class="form-sect">
+            <label for="edit-priority">Priority</label>
+            <select name="priority" id="edit-priority">
+              <option value="priority-4">Priority 4</option>
+              <option value="priority-1">Priority 1</option>
+              <option value="priority-2">Priority 2</option>
+              <option value="priority-3">Priority 3</option>
+            </select>
+          </div>
+          <div class="form-sect">
+            <label for="edit-project">Project</label>
+            <select name="project" id="edit-project"></select>
+          </div>
+        </div>
+        <div class="form-buttons">
+          <button class="cancel" type="button" id="edit-task-cancel-button">
+            Cancel
+          </button>
+          <button class="submit" type="submit" id="edit-submit-button">
+            Save
+          </button>
+        </div>
+      </form>
+    </dialog>
     <script
       src="https://kit.fontawesome.com/4291371c10.js"
       crossorigin="anonymous"

@@ -1,62 +1,62 @@
 class Task {
-    constructor(title, description, dueDate, priority, project) {
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.project = project;
-        this.completed = false;
-    }
+  constructor(title, description, dueDate, priority, project) {
+    this.title = title;
+    this.description = description;
+    this.dueDate = dueDate;
+    this.priority = priority;
+    this.project = project;
+    this.completed = false;
+  }
 
-    // Getters
-    getTitle() {
-        return this.title;
-    }
+  // Getters
+  getTitle() {
+    return this.title;
+  }
 
-    getDescription() {
-        return this.description;
-    }
+  getDescription() {
+    return this.description;
+  }
 
-    getDueDate() {
-        return this.dueDate;
-    }
+  getDueDate() {
+    return this.dueDate;
+  }
 
-    getPriority() {
-        return this.priority;
-    }
+  getPriority() {
+    return this.priority;
+  }
 
-    getCompleted() {
-        return this.completed;
-    }
+  getCompleted() {
+    return this.completed;
+  }
 
-    getProject() {
-        return this.project;
-    }
+  getProject() {
+    return this.project;
+  }
 
-    // Setters
-    setTitle(value) {
-        this.title = value;
-    }
+  // Setters
+  setTitle(value) {
+    this.title = value;
+  }
 
-    setDescription(value) {
-        this.description = value;
-    }
+  setDescription(value) {
+    this.description = value;
+  }
 
-    setDueDate(value) {
-        this.dueDate = value;
-    }
+  setDueDate(value) {
+    this.dueDate = value;
+  }
 
-    setPriority(value) {
-        this.priority = value;
-    }
+  setPriority(value) {
+    this.priority = value;
+  }
 
-    setProject(value) {
-        this.project = value;
-    }
+  setProject(value) {
+    this.project = value;
+  }
 
-    completeTask() {
-        this.completed = true;
-    }
+  completeTask() {
+    this.completed = true;
+  }
 }
 
 export { Task };
