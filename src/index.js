@@ -7,6 +7,7 @@ import {
 import { setupTabClickHandlers } from "./domManipulation.js";
 
 const controller = toDoController();
+controller.addProject("Inbox");
 initializeProjectButtonLogic(controller);
 initializeTaskButtonLogic(controller);
 setupTabClickHandlers(controller);

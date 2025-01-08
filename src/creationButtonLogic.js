@@ -16,7 +16,7 @@ const initializeProjectButtonLogic = (controller) => {
     controller.addProject(projectTitle);
     projectDialog.close();
     addProjectForm.reset();
-    displayProjects(controller);
+    displayProjects(controller); // Ensure "Inbox" is filtered out
   });
 
   cancelButton.addEventListener("click", function () {
@@ -37,12 +37,19 @@ const initializeTaskButtonLogic = (controller) => {
 
   addTaskButton.addEventListener("click", function () {
     const projects = controller.getProjects();
+    projectSelect.replaceChildren(); // Clear existing options
+    const inboxOption = document.createElement("option");
+    inboxOption.value = "Inbox";
+    inboxOption.textContent = "Inbox";
+    projectSelect.appendChild(inboxOption); // Add "Inbox" as the first option
+
     for (let i = 0; i < projects.length; i++) {
       const option = document.createElement("option");
       option.value = projects[i].title;
       option.textContent = projects[i].title;
       projectSelect.appendChild(option);
     }
+    projectSelect.value = "Inbox"; // Set "Inbox" as the default value
     taskDialog.showModal();
   });
 

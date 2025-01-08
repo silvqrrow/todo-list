@@ -5,6 +5,8 @@ const displayProjects = (controller) => {
   const projectContainer = document.querySelector(".project-list");
   projectContainer.replaceChildren();
   controller.getProjects().forEach((project, index) => {
+    if (project.getTitle() === "Inbox") return; // Skip "Inbox" project
+
     const projectTab = document.createElement("button");
     projectTab.classList.add("btn-projects");
     projectTab.classList.add("tab");
@@ -32,6 +34,8 @@ const removeProject = (index, controller) => {
 };
 
 const displayTasks = (project, controller) => {
+  if (project.getTitle() === "Inbox") return; // Skip "Inbox" project
+
   const completeSound = new Audio(completedSound);
 
   const projectTitle = project.getTitle();
@@ -159,7 +163,7 @@ const displayTasks = (project, controller) => {
       editTaskForm["edit-description"].value = task.getDescription();
       editTaskForm["edit-due-date"].value = task.getDueDate();
       editTaskForm["edit-priority"].value = task.getPriority();
-      editTaskForm["edit-project"].value = task.getProject();
+      editTaskForm["edit-project"].value = task.getProject() || "Inbox";
 
       editTaskDialog.showModal();
 
@@ -279,7 +283,7 @@ const displayAllTasks = (controller) => {
       editTaskForm["edit-description"].value = task.getDescription();
       editTaskForm["edit-due-date"].value = task.getDueDate();
       editTaskForm["edit-priority"].value = task.getPriority();
-      editTaskForm["edit-project"].value = task.getProject();
+      editTaskForm["edit-project"].value = task.getProject() || "Inbox";
 
       editTaskDialog.showModal();
 
