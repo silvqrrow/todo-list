@@ -50,6 +50,22 @@ const toDoController = function () {
     return projects.find((project) => project.getTitle() === projectTitle);
   };
 
+  const getAllTasks = () => {
+    return projects
+      .map((project) => project.getTasks())
+      .reduce((acc, tasks) => acc.concat(tasks), []);
+  };
+
+  const getTodayTasks = () => {
+    return getAllTasks().filter((task) => isToday(new Date(task.getDueDate())));
+  };
+
+  const getFutureTasks = () => {
+    return getAllTasks().filter((task) =>
+      isFuture(new Date(task.getDueDate()))
+    );
+  };
+
   return {
     addProject,
     getProjects,
@@ -61,6 +77,9 @@ const toDoController = function () {
     searchForProject,
     removeTask,
     getProject,
+    getAllTasks,
+    getTodayTasks,
+    getFutureTasks,
   };
 };
 

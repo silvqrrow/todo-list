@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import completedSound from "./sounds/completed.mp3";
 
 const displayProjects = (controller) => {
@@ -78,7 +78,7 @@ const displayTasks = (project, controller) => {
 
     const taskDueDate = document.createElement("p");
     taskDueDate.classList.add("task-due-date");
-    const dueDate = new Date(task.getDueDate());
+    const dueDate = parseISO(task.getDueDate());
     const formattedDate =
       dueDate.getFullYear() > 2025
         ? format(dueDate, "MMM d, yyyy")
@@ -190,8 +190,128 @@ const displayTasks = (project, controller) => {
   });
 };
 
+const displayAllTasks = (controller) => {
+  const completeSound = new Audio(completedSound);
+  const tasks = controller.getAllTasks();
+  const contentContainer = document.querySelector(".content");
+
+  contentContainer.replaceChildren();
+
+  const projectHeading = document.createElement("h1");
+  projectHeading.textContent = "Inbox";
+  contentContainer.append(projectHeading);
+
+  // Create and append taskContainer
+  const taskContainer = document.createElement("div");
+  taskContainer.classList.add("task-container");
+  contentContainer.append(taskContainer);
+
+  tasks.forEach((task, index) => {
+    const taskTab = document.createElement("div");
+    taskTab.classList.add("task-tab");
+    taskTab.setAttribute("data-index", index);
+
+    const taskControls = document.createElement("div");
+    taskControls.classList.add("task-controls");
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.classList.add(`${task.getPriority()}`);
+    checkbox.classList.add("checkbox");
+    taskControls.appendChild(checkbox);
+
+    const editIcon = document.createElement("i");
+    editIcon.classList.add("fas", "fa-edit", "edit-icon");
+    taskControls.appendChild(editIcon);
+
+    taskTab.appendChild(taskControls);
+    const textContainer = document.createElement("div");
+    textContainer.classList.add("text-container");
+
+    const taskTitle = document.createElement("p");
+    taskTitle.classList.add("task-title");
+    taskTitle.textContent = task.getTitle();
+    textContainer.appendChild(taskTitle);
+
+    const taskDueDate = document.createElement("p");
+    taskDueDate.classList.add("task-due-date");
+    const dueDate = parseISO(task.getDueDate());
+    const formattedDate =
+      dueDate.getFullYear() > 2025
+        ? format(dueDate, "MMM d, yyyy")
+        : format(dueDate, "MMM d");
+    taskDueDate.textContent = formattedDate;
+    textContainer.appendChild(taskDueDate);
+
+    const taskDescription = document.createElement("p");
+    taskDescription.classList.add("task-description");
+    taskDescription.textContent = task.getDescription();
+    textContainer.appendChild(taskDescription);
+
+    taskTab.appendChild(textContainer);
+    taskContainer.appendChild(taskTab);
+
+    checkbox.addEventListener("click", function () {
+      controller.removeTask(task.getProject(), index);
+      taskTab.remove();
+      completeSound.play();
+    });
+
+    editIcon.addEventListener("click", function () {
+      const editTaskDialog = document.querySelector(".edit-task-dialog");
+      const editTaskForm = document.querySelector(".edit-task-form");
+      const editProjectSelect = editTaskForm["edit-project"];
+
+      // Clear existing options
+      editProjectSelect.innerHTML = "";
+
+      // Populate the project dropdown with the current list of projects
+      const projects = controller.getProjects();
+      projects.forEach((project) => {
+        const option = document.createElement("option");
+        option.value = project.getTitle();
+        option.textContent = project.getTitle();
+        editProjectSelect.appendChild(option);
+      });
+
+      // Populate the edit form with the current task details
+      editTaskForm["edit-title"].value = task.getTitle();
+      editTaskForm["edit-description"].value = task.getDescription();
+      editTaskForm["edit-due-date"].value = task.getDueDate();
+      editTaskForm["edit-priority"].value = task.getPriority();
+      editTaskForm["edit-project"].value = task.getProject();
+
+      editTaskDialog.showModal();
+
+      // Remove the existing event listener before adding a new one
+      const newHandleEditSubmit = function (e) {
+        handleEditSubmit(
+          e,
+          editTaskForm,
+          task,
+          task.getProject(),
+          index,
+          taskTab,
+          controller,
+          editTaskDialog
+        );
+        editTaskForm.removeEventListener("submit", newHandleEditSubmit);
+      };
+
+      editTaskForm.addEventListener("submit", newHandleEditSubmit);
+
+      const editCancelButton = document.getElementById(
+        "edit-task-cancel-button"
+      );
+      editCancelButton.addEventListener("click", function () {
+        editTaskDialog.close();
+      });
+    });
+  });
+};
+
 // Purely for adding colouring for tabs
-function setupTabClickHandlers() {
+function setupTabClickHandlers(controller) {
   document.addEventListener("DOMContentLoaded", () => {
     const topSidebarUpper = document.querySelector(".top-sidebar-upper");
     const projectList = document.querySelector(".project-list");
@@ -206,6 +326,11 @@ function setupTabClickHandlers() {
 
         // Add active class to the clicked tab
         event.target.classList.add("active");
+
+        // Check if the clicked tab is the "Inbox" tab
+        if (event.target.id === "inbox-tab") {
+          displayAllTasks(controller);
+        }
       }
     }
 
@@ -214,4 +339,9 @@ function setupTabClickHandlers() {
   });
 }
 
-export { displayProjects, displayTasks, setupTabClickHandlers };
+export {
+  displayProjects,
+  displayTasks,
+  setupTabClickHandlers,
+  displayAllTasks,
+};
